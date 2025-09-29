@@ -1,3 +1,5 @@
+import CourseCard from "./CourseCard";
+
 type Course = {
   term: string;
   number: string;
@@ -14,9 +16,11 @@ type CourseListType = {
   courses: Courses;
 };
 
-const CourseList = ({courses}: CourseListType) => (
-  <div>
-    { Object.entries(courses).map(([id, course]) => <div key={id}>{course.term} CS {course.number}: {course.title}</div>) }
+const CourseList = ({ courses }: CourseListType) => (
+  <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 px-4">
+    {Object.entries(courses).map(([id, course]) => (
+      <CourseCard key={id} course={course} />
+    ))}
   </div>
 );
 

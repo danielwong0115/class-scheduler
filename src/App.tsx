@@ -37,8 +37,7 @@ const App = () => {
 
   return (
     <div className='pl-2'>
-      {/* <h1>Chris Riesbeck</h1> */}
-      {/* <h1 className='font-bold'>{schedule.title}</h1> */}
+
       <Banner title={schedule.title} />
       <br></br>
       <CourseList courses={schedule.courses} />
