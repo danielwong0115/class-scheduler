@@ -1,5 +1,5 @@
 import Banner from './components/Banner';
-import CourseList from './components/CourseList';
+import QuarterPage from './components/QuarterPage';
 import { useJsonQuery } from './utilities/fetch';
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
@@ -30,9 +30,9 @@ const App = () => {
   return (
     <div className='pl-2'>
 
-      <Banner title={schedule.title} />
-      <br></br>
-      <CourseList courses={schedule.courses} />
+      <Banner title={schedule.title} />                                                                                                                                                                                                                                                                                                
+      <br></br>                                                                                               
+      <QuarterPage courses={schedule.courses} />
     </div>
   )
 }
