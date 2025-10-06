@@ -5,18 +5,20 @@ type Course = {
   meets: string;
 };
 
-type CourseCardProps = {
+interface CourseCardProps {
   course: Course;
-};
+  selected?: boolean;
+}
 
-const CourseCard = ({ course }: CourseCardProps) => (
-  <div className="flex flex-col text-left p-4 border-2 border-gray-400 rounded-lg">
+const CourseCard = ({ course, selected = false }: CourseCardProps) => (
+  <div className={`flex flex-col text-left p-4 border-2 rounded-lg h-full
+      ${selected ? 'bg-green-200 border-green-400' : 'bg-white border-gray-400'}
+    `}>
     <h2 className="font-bold">{course.term} CS {course.number}</h2>
     <div className="font-medium">{course.title}</div>
 
     <br></br>
     <br></br>
-
     <div className="flex-grow" />
     
     <hr></hr>
