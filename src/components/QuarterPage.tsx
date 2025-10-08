@@ -5,6 +5,9 @@ import QuarterSelector from './QuarterSelector';
 import CourseList from './CourseList';
 
 
+import CourseModal from "./CourseModal";
+
+
 type Quarter = 'Fall' | 'Winter' | 'Spring';
 
 
@@ -25,6 +28,7 @@ const toggleList = <T,>(x: T, lst: T[]): T[] =>
 const QuarterPage = ({ courses }: QuarterPageProps) => {
   const [selection, setSelection] = useState<Quarter>('Fall');
   const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const toggleSelected = (id: string) => {
     setSelectedCourses((prev) => toggleList(id, prev));
@@ -36,19 +40,23 @@ const QuarterPage = ({ courses }: QuarterPageProps) => {
 
   return (
     <div>
-      <QuarterSelector selection={selection} setSelection={setSelection} />
+      <div className="flex justify-between mb-4">
+        <QuarterSelector selection={selection} setSelection={setSelection} />
+        <button
+          onClick={() => setModalOpen(true)}
+          className="bg-purple-400 hover:bg-purple-700 text-white font-semibold px-2 py-1"
+        >
+          View Course Plan
+        </button>
+      </div>
       <br />
 
       <div className="mb-4">
-        <h2 className="text-lg font-semibold">
-          Selected Courses:{' '}
-          {selectedCourses.length === 0
-            ? 'None'
-            : selectedCourses.map(id => `CS ${courses[id].number}(${courses[id].term})`).join(', ')}
-        </h2>
       </div>
 
       <CourseList courses={quarterCourses} selectedCourses={selectedCourses} toggleSelected={toggleSelected}/>
+            
+      <CourseModal isOpen={modalOpen} onClose={() => setModalOpen(false)} selectedCourses={selectedCourses} courses={courses}/>
     </div>
   );
 };
