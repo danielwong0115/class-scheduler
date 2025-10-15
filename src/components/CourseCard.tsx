@@ -20,8 +20,8 @@ const CourseCard = ({ course, selected = false, disabled = false }: CourseCardPr
     <div className="flex items-center justify-between">
       <h2 className="font-bold">{course.term} CS {course.number}</h2>
       <Link 
-        to="/edit/$meeting/$number" 
-        params={{ meeting: course.meets, number: course.number }}
+        to="/edit/$meeting/$number/$title/$term" 
+        params={{ meeting: course.meets, number: course.number, title: course.title, term: course.term }}
         className="px-2 py-1 text-sm bg-purple-500 text-white rounded"
       >
         Edit

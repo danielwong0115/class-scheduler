@@ -10,43 +10,44 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as EditMeetingNumberRouteImport } from './routes/edit.$meeting.$number'
+import { Route as EditMeetingNumberTitleTermRouteImport } from './routes/edit.$meeting.$number.$title.$term'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EditMeetingNumberRoute = EditMeetingNumberRouteImport.update({
-  id: '/edit/$meeting/$number',
-  path: '/edit/$meeting/$number',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const EditMeetingNumberTitleTermRoute =
+  EditMeetingNumberTitleTermRouteImport.update({
+    id: '/edit/$meeting/$number/$title/$term',
+    path: '/edit/$meeting/$number/$title/$term',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/edit/$meeting/$number': typeof EditMeetingNumberRoute
+  '/edit/$meeting/$number/$title/$term': typeof EditMeetingNumberTitleTermRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/edit/$meeting/$number': typeof EditMeetingNumberRoute
+  '/edit/$meeting/$number/$title/$term': typeof EditMeetingNumberTitleTermRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/edit/$meeting/$number': typeof EditMeetingNumberRoute
+  '/edit/$meeting/$number/$title/$term': typeof EditMeetingNumberTitleTermRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/edit/$meeting/$number'
+  fullPaths: '/' | '/edit/$meeting/$number/$title/$term'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/edit/$meeting/$number'
-  id: '__root__' | '/' | '/edit/$meeting/$number'
+  to: '/' | '/edit/$meeting/$number/$title/$term'
+  id: '__root__' | '/' | '/edit/$meeting/$number/$title/$term'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  EditMeetingNumberRoute: typeof EditMeetingNumberRoute
+  EditMeetingNumberTitleTermRoute: typeof EditMeetingNumberTitleTermRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +59,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/edit/$meeting/$number': {
-      id: '/edit/$meeting/$number'
-      path: '/edit/$meeting/$number'
-      fullPath: '/edit/$meeting/$number'
-      preLoaderRoute: typeof EditMeetingNumberRouteImport
+    '/edit/$meeting/$number/$title/$term': {
+      id: '/edit/$meeting/$number/$title/$term'
+      path: '/edit/$meeting/$number/$title/$term'
+      fullPath: '/edit/$meeting/$number/$title/$term'
+      preLoaderRoute: typeof EditMeetingNumberTitleTermRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +71,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  EditMeetingNumberRoute: EditMeetingNumberRoute,
+  EditMeetingNumberTitleTermRoute: EditMeetingNumberTitleTermRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
