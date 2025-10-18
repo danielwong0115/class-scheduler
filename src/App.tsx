@@ -1,6 +1,6 @@
 import Banner from './components/Banner';
 import QuarterPage from './components/QuarterPage';
-import { useJsonQuery } from './utilities/fetch';
+import { useDbData } from './utilities/firebase';
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 
@@ -19,13 +19,13 @@ interface Schedule {
 
 const App = () => {
 
-  const [json, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
+  const [data, isLoading, error] = useDbData('/');
 
-  if (error) return <p>Error loading course data: {`${error}`}</p>;
+  if (error) return <p>Error loading course data: {error.message}</p>;
   if (isLoading) return <p>Loading courses...</p>;
-  if (!json) return <p>No courses found</p>;
+  if (!data) return <p>No courses found</p>;
 
-  const schedule = json as Schedule;
+  const schedule = data as Schedule;
 
   return (
     <div className='pl-2'>
