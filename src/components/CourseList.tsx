@@ -27,7 +27,7 @@ const CourseList = ({ courses, selectedCourses, toggleSelected }: CourseListProp
           key={id} 
           onClick={() => { if (!disabled) toggleSelected(id);}}
         >
-          <CourseCard course={course} selected={isSelected} disabled={disabled} />
+          <CourseCard id={id} course={course} selected={isSelected} disabled={disabled} />
         </div>
       );
     })}
