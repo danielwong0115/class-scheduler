@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useAuthState } from '../utilities/firebase';
+import { useProfile } from '../utilities/profile';
 
 type Course = {
   term: string;
@@ -16,7 +16,7 @@ interface CourseCardProps {
 }
 
 const CourseCard = ({ id, course, selected = false, disabled = false }: CourseCardProps) => {
-  const { isAuthenticated } = useAuthState();
+  const [profile] = useProfile();
   
   return (
     <div className={`flex flex-col text-left p-4 border-2 rounded-lg h-full
@@ -24,7 +24,7 @@ const CourseCard = ({ id, course, selected = false, disabled = false }: CourseCa
       `}>
       <div className="flex items-center justify-between">
         <h2 className="font-bold">{course.term} CS {course.number}</h2>
-        {isAuthenticated && (
+        {profile.isAdmin && (
           <Link 
             to="/edit/$meeting/$number/$title/$term" 
             params={{ meeting: course.meets, number: course.number, title: course.title, term: course.term }}
