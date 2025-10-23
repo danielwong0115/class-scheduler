@@ -31,7 +31,6 @@ const App = () => {
     <div className='pl-2'>
 
       <Banner title={schedule.title} />                                                                                                                                                                                                                                                                                                
-      <br></br>                                                                                               
       <QuarterPage courses={schedule.courses} />
     </div>
   )

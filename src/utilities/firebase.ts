@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, onValue, ref, set, update } from 'firebase/database';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, type NextOrObserver, type User } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyARlz-DBMAwd6sWSLPHsLr3ZuFeOpJsme8",
@@ -15,6 +17,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const auth = getAuth(firebase);
 
 export const useDbData = (path: string): [unknown, boolean, Error | undefined] => {
   const [data, setData] = useState();
@@ -44,4 +47,38 @@ export const setData = (path: string, value: any) => {
 
 export const updateData = (path: string, value: any) => {
   return update(ref(database, path), value);
+};
+
+// Authentication
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, new GoogleAuthProvider());
+};
+
+const firebaseSignOut = () => signOut(auth);
+
+export { firebaseSignOut as signOut };
+
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  isInitialLoading: boolean;
+}
+
+export const addAuthStateListener = (fn: NextOrObserver<User>) => (
+  onAuthStateChanged(auth, fn)
+);
+
+export const useAuthState = (): AuthState => {
+  const [user, setUser] = useState(auth.currentUser);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const isAuthenticated = !!user;
+
+  useEffect(() => addAuthStateListener((user) => {
+      flushSync(() => {
+        setUser(user);
+        setIsInitialLoading(false);
+      })
+    }), [])
+
+  return { user, isAuthenticated, isInitialLoading };
 };
