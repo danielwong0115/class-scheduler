@@ -19,6 +19,7 @@ const QuarterButton = ({ quarter, selection, setSelection }: QuarterSelectorProp
     <label
       htmlFor={quarter}
       className="btn btn-success mb-1 p-2"
+      data-cy={quarter}
     >
       {quarter}
     </label>
