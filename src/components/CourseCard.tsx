@@ -19,9 +19,12 @@ const CourseCard = ({ id, course, selected = false, disabled = false }: CourseCa
   const [profile] = useProfile();
   
   return (
-    <div className={`flex flex-col text-left p-4 border-2 rounded-lg h-full
+    <div 
+      className={`flex flex-col text-left p-4 border-2 rounded-lg h-full
         ${selected ? 'bg-green-200 border-green-400' : disabled ? 'bg-gray-100 border-gray-400 opacity-30 cursor-not-allowed': 'bg-white border-gray-400'}
-      `}>
+      `}
+      data-cy="course"
+    >
       <div className="flex items-center justify-between">
         <h2 className="font-bold">{course.term} CS {course.number}</h2>
         {profile.isAdmin && (
